@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
+        <title>Stop Watch</title>
+    </head>
+    <body><br><br>
+        <img src="frame.jpg" class="img">
+        <div id="dial"></div>
+        <br><br><br><br><br><br><br>
+        <div class="container"><br><br>
+            <div id="timing">00:00:00</div><br>
+            <div class="buttons">
+                <button class="btn" id="start" onclick="start()">Start</button>
+                <button class="btn" id="stop" onclick="stop()">Stop</button>
+                <button class="btn" id="reset" onclick="reset()">Reset</button>
+            </div><br><br>
+        </div>
+        <script>
+            let s = 0;
+            let m = 0;
+            let h = 0;
+            let intervalid = null;
+
+            function start(){
+                if(intervalid==null){
+                intervalid = setInterval(updatetime,1000);
+                document.getElementById("dial").classList.add("dial");
+            }
+            }
+            function updatetime(){
+                s+=1;
+                if(s==60){
+                    m+=1;
+                    s=0
+                }
+                if(m==60){
+                    h+=1;
+                    m=0;
+                }
+                document.getElementById("timing").innerHTML = h+" : "+m+" : "+s;
+            }
+            function stop(){
+                document.getElementById("dial").classList.remove("dial");
+                document.getElementById("dial").classList.add("notdial");
+                clearInterval(intervalid);
+                intervalid = null;
+            }
+            function reset(){
+                document.getElementById("dial").classList.remove("dial");
+                document.getElementById("dial").classList.add("notdial");
+                clearInterval(intervalid);
+                m = s = h = 0;
+                document.getElementById("timing").innerHTML = "00:00:00";
+                intervalid = null;
+            }
+        </script>
+    </body>
+</html>
